@@ -18,6 +18,7 @@ export type TagTreeNodeInit<T> = {|
 
 export default class TagTreeNode<T> {
   _init: TagTreeNodeInit<T>;
+  _ownedNodes: Map<TagTreeNode<T>, string> = new Map();
   _ownedByTag: Map<string, {
     liveSet: LiveSet<TagTreeNode<T>>;
     controller: LiveSetController<TagTreeNode<T>>;
@@ -27,6 +28,7 @@ export default class TagTreeNode<T> {
     this._init = init;
     this._init.executor({
       addOwnedNode: (tag, node) => {
+        this._ownedNodes.set(node, tag);
         let entry = this._ownedByTag.get(tag);
         if (!entry) {
           entry = this._createTagEntry();
@@ -36,6 +38,7 @@ export default class TagTreeNode<T> {
         controller.add(node);
       },
       removeOwnedNode: (tag, node) => {
+        this._ownedNodes.delete(node);
         const entry = this._ownedByTag.get(tag);
         if (!entry) throw new Error('tag not owned');
         const {controller} = entry;
@@ -66,8 +69,8 @@ export default class TagTreeNode<T> {
     return this._init.value;
   }
 
-  getParent(): ?TagTreeNode<T> {
-    return this._init.parent;
+  getParent(): null|TagTreeNode<T> {
+    return this._init.parent || null;
   }
 
   getOwnedByTag(tag: string): LiveSet<TagTreeNode<T>> {
@@ -88,5 +91,16 @@ export default class TagTreeNode<T> {
       m.set(tag, liveSet);
     });
     return m;
+  }
+
+  getTag(): null|string {
+    const {parent} = this._init;
+    return parent ? parent.getTagOfOwnedNode(this) : null;
+  }
+
+  getTagOfOwnedNode(node: TagTreeNode<T>): string {
+    const tag = this._ownedNodes.get(node);
+    if (tag == null) throw new Error('node not owned');
+    return tag;
   }
 }

@@ -13,6 +13,9 @@ test('works', () => {
   });
   if (!controller) throw new Error();
 
+  expect(lt.getParent()).toBe(null);
+  expect(lt.getTag()).toBe(null);
+
   expect(() => lt.getOwnedByTag('foo')).toThrowError();
 
   const sidebars = lt.getAllByTag('sidebar');
@@ -28,6 +31,11 @@ test('works', () => {
 
   const first = controller.addTaggedValue(lt, 'comment', 'FIRST');
   const firstReply = controller.addTaggedValue(first, 'comment', 'reply to first');
+
+  expect(firstReply.getParent()).toBe(first);
+  expect(firstReply.getTag()).toBe('comment');
+  expect(first.getTagOfOwnedNode(firstReply)).toBe('comment');
+  expect(() => firstReply.getTagOfOwnedNode(first)).toThrowError();
 
   controller.addTaggedValue(lt, 'comment', 'do not reply to FIRST');
   const firstReplyReply = controller.addTaggedValue(firstReply, 'comment', 'reply to reply to first');
