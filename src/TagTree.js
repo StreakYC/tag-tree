@@ -132,6 +132,7 @@ export default class TagTree<T> extends TagTreeNode<T> {
       }
     };
     init.executor(controller);
+    init.executor = () => {}; // release reference
   }
 
   getNodesForValue(value: T): Array<TagTreeNode<T>> {

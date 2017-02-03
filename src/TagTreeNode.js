@@ -50,6 +50,7 @@ export default class TagTreeNode<T> {
         });
       }
     });
+    this._init.executor = () => {}; // release reference
   }
 
   _createTagEntry(): Object {
