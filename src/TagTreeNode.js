@@ -16,13 +16,15 @@ export type TagTreeNodeInit<T> = {|
   executor: (controller: TagTreeNodeController<T>) => void;
 |};
 
+type TagEntry<T> = {
+  liveSet: LiveSet<TagTreeNode<T>>;
+  controller: LiveSetController<TagTreeNode<T>>;
+};
+
 export default class TagTreeNode<T> {
   _init: TagTreeNodeInit<T>;
   _ownedNodes: Map<TagTreeNode<T>, string> = new Map();
-  _ownedByTag: Map<string, {
-    liveSet: LiveSet<TagTreeNode<T>>;
-    controller: LiveSetController<TagTreeNode<T>>;
-  }> = new Map();
+  _ownedByTag: Map<string, TagEntry<T>> = new Map();
 
   constructor(init: TagTreeNodeInit<T>) {
     this._init = init;
@@ -53,17 +55,8 @@ export default class TagTreeNode<T> {
     this._init.executor = () => {}; // release reference
   }
 
-  _createTagEntry(): Object {
-    let controller;
-    const liveSet = new LiveSet({
-      read: () => new Set(),
-      listen: _controller => {
-        controller = _controller;
-      }
-    });
-    liveSet.subscribe({}); // force activation
-    if (!controller) throw new Error();
-    return {liveSet, controller};
+  _createTagEntry(): TagEntry<T> {
+    return LiveSet.active();
   }
 
   getValue(): T {

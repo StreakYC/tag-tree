@@ -43,15 +43,7 @@ export default class TagTree<T> extends TagTreeNode<T> {
     this._nodeControllers.set(this, rootNodeController);
 
     this._allByTag = new Map(init.tags.map(({tag}) => {
-      let controller;
-      const liveSet = new LiveSet({
-        read: () => new Set(),
-        listen: _controller => {
-          controller = _controller;
-        }
-      });
-      liveSet.subscribe({}); // force activation
-      if (!controller) throw new Error();
+      const {liveSet, controller} = LiveSet.active();
       return [tag, {ownedTags: new Set(), liveSet, controller}];
     }));
 
