@@ -30,7 +30,7 @@ export default class TagTree<T> extends TagTreeNode<T> {
   }>;
 
   constructor(init: TagTreeInit<T>) {
-    let _this, rootNodeController;
+    let rootNodeController;
     super({
       value: init.root,
       parent: null,
@@ -39,7 +39,6 @@ export default class TagTree<T> extends TagTreeNode<T> {
         rootNodeController = controller;
       }
     });
-    _this = this;
     if (!rootNodeController) throw new Error();
     this._nodeControllers.set(this, rootNodeController);
 
