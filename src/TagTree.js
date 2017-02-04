@@ -42,10 +42,12 @@ export default class TagTree<T> extends TagTreeNode<T> {
     if (!rootNodeController) throw new Error();
     this._nodeControllers.set(this, rootNodeController);
 
-    this._allByTag = new Map(init.tags.map(({tag}) => {
+    this._allByTag = new Map();
+    init.tags.forEach(({tag}) => {
       const {liveSet, controller} = LiveSet.active();
-      return [tag, {ownedTags: new Set(), liveSet, controller}];
-    }));
+      if (this._allByTag.has(tag)) throw new Error('Tag specified twice: '+tag);
+      this._allByTag.set(tag, {ownedTags: new Set(), liveSet, controller});
+    });
 
     init.tags.forEach(({tag, ownedBy}) => {
       if (!ownedBy) return;

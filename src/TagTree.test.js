@@ -55,3 +55,11 @@ test('works', () => {
 
   controller.end();
 });
+
+test('duplicate tags', () => {
+  expect(() => new TagTree({
+    root: '<root>',
+    tags: [{tag: 'sidebar'}, {tag: 'comment', ownedBy: ['comment']}, {tag: 'sidebar'}],
+    executor() {}
+  })).toThrowError();
+});
