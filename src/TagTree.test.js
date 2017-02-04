@@ -48,7 +48,9 @@ test('works', () => {
 
   expect(Array.from(allComments.values()).map(x=>x.getValue())).toEqual(['FIRST', 'reply to first', 'do not reply to FIRST', 'reply to reply to first', 'reply to reply to reply to first']);
 
+  expect(first.ownsNode(firstReply)).toBe(true);
   controller.removeTaggedNode(first, 'comment', firstReply);
+  expect(first.ownsNode(firstReply)).toBe(false);
   expect(Array.from(allComments.values()).map(x=>x.getValue())).toEqual(['FIRST', 'do not reply to FIRST']);
 
   controller.end();

@@ -92,6 +92,10 @@ export default class TagTreeNode<T> {
     return parent ? parent.getTagOfOwnedNode(this) : null;
   }
 
+  ownsNode(node: TagTreeNode<T>): boolean {
+    return this._ownedNodes.has(node);
+  }
+
   getTagOfOwnedNode(node: TagTreeNode<T>): string {
     const tag = this._ownedNodes.get(node);
     if (tag == null) throw new Error('node not owned');
