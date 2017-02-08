@@ -14,6 +14,7 @@ test('works', () => {
   if (!controller) throw new Error();
 
   expect(controller.tree).toBe(lt);
+  expect(lt.getNodesForValue('<root>')).toEqual([lt]);
 
   expect(lt.getParent()).toBe(null);
   expect(lt.getTag()).toBe(null);
@@ -54,6 +55,8 @@ test('works', () => {
   controller.removeTaggedNode(first, 'comment', firstReply);
   expect(first.ownsNode(firstReply)).toBe(false);
   expect(Array.from(allComments.values()).map(x=>x.getValue())).toEqual(['FIRST', 'do not reply to FIRST']);
+
+  expect(lt.getNodesForValue('FIRST')).toEqual([first]);
 
   controller.end();
 });

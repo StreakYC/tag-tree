@@ -23,7 +23,7 @@ const EMPTY_ARRAY = Object.freeze([]);
 
 export default class TagTree<T> extends TagTreeNode<T> {
   _nodeControllers: Map<TagTreeNode<T>, TagTreeNodeController<T>> = new Map();
-  _lookupTable: Map<T, Array<TagTreeNode<T>>> = new Map();
+  _lookupTable: Map<T, Array<TagTreeNode<T>>>;
   _allByTag: Map<string, {
     ownedTags: Set<string>;
     liveSet: LiveSet<TagTreeNode<T>>;
@@ -42,6 +42,8 @@ export default class TagTree<T> extends TagTreeNode<T> {
     });
     if (!rootNodeController) throw new Error();
     this._nodeControllers.set(this, rootNodeController);
+
+    this._lookupTable = new Map([[init.root, [this]]]);
 
     this._allByTag = new Map();
     init.tags.forEach(({tag}) => {
