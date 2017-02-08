@@ -4,6 +4,7 @@ import LiveSet from 'live-set';
 import type {LiveSetController} from 'live-set';
 
 export type TagTreeNodeController<T> = {
+  node: TagTreeNode<T>;
   addOwnedNode(tag: string, node: TagTreeNode<T>): void;
   removeOwnedNode(tag: string, node: TagTreeNode<T>): void;
   end(): void;
@@ -29,6 +30,7 @@ export default class TagTreeNode<T> {
   constructor(init: TagTreeNodeInit<T>) {
     this._init = init;
     this._init.executor({
+      node: this,
       addOwnedNode: (tag, node) => {
         this._ownedNodes.set(node, tag);
         let entry = this._ownedByTag.get(tag);

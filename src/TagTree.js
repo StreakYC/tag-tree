@@ -7,6 +7,7 @@ import TagTreeNode from './TagTreeNode';
 import type {TagTreeNodeController} from './TagTreeNode';
 
 export type TagTreeController<T> = {
+  tree: TagTree<T>;
   addTaggedValue(parent: TagTreeNode<T>, tag: string, value: T): TagTreeNode<T>;
   removeTaggedNode(parent: TagTreeNode<T>, tag: string, node: TagTreeNode<T>): void;
   end(): void;
@@ -59,6 +60,7 @@ export default class TagTree<T> extends TagTreeNode<T> {
     });
 
     const controller = {
+      tree: this,
       addTaggedValue: (parent, tag, value) => {
         const tagEntry = this._allByTag.get(tag);
         if (!tagEntry) throw new Error(`unknown tag: ${tag}`);

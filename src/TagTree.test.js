@@ -13,6 +13,8 @@ test('works', () => {
   });
   if (!controller) throw new Error();
 
+  expect(controller.tree).toBe(lt);
+
   expect(lt.getParent()).toBe(null);
   expect(lt.getTag()).toBe(null);
 
