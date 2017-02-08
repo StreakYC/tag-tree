@@ -98,6 +98,9 @@ export default class TagTree<T> extends TagTreeNode<T> {
         const tagEntry = this._allByTag.get(tag);
         if (!tagEntry) throw new Error(`unknown tag: ${tag}`);
 
+        const parentController = this._nodeControllers.get(parent);
+        if (!parentController) throw new Error('parent is not part of TagTree');
+
         const value = node.getValue();
         const nodes = this._lookupTable.get(value);
         if (!nodes) throw new Error('node was missing from lookup table before removal');
@@ -116,11 +119,7 @@ export default class TagTree<T> extends TagTreeNode<T> {
         });
 
         tagEntry.controller.remove(node);
-
-        const parentController = this._nodeControllers.get(parent);
-        if (!parentController) throw new Error('parent is not part of TagTree');
         parentController.removeOwnedNode(tag, node);
-
         this._nodeControllers.delete(node);
       },
       end: () => {
