@@ -58,7 +58,13 @@ test('works', () => {
 
   expect(lt.getNodesForValue('FIRST')).toEqual([first]);
 
+  expect(comments.isEnded()).toBe(false);
+  expect(allComments.isEnded()).toBe(false);
+
   controller.end();
+
+  expect(comments.isEnded()).toBe(true);
+  expect(allComments.isEnded()).toBe(true);
 });
 
 test('duplicate tags', () => {

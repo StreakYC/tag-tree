@@ -126,6 +126,9 @@ export default class TagTree<T> extends TagTreeNode<T> {
         this._nodeControllers.forEach(controller => {
           controller.end();
         });
+        this._allByTag.forEach(({controller}) => {
+          controller.end();
+        });
       }
     };
     init.executor(controller);
