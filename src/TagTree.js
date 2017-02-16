@@ -19,7 +19,7 @@ export type TagTreeInit<T> = {|
   executor: (controller: TagTreeController<T>) => void;
 |};
 
-const EMPTY_ARRAY = Object.freeze([]);
+const EMPTY_ARRAY: any[] = Object.freeze([]);
 
 export default class TagTree<T> extends TagTreeNode<T> {
   _nodeControllers: Map<TagTreeNode<T>, TagTreeNodeController<T>> = new Map();
@@ -134,7 +134,7 @@ export default class TagTree<T> extends TagTreeNode<T> {
 
   getNodesForValue(value: T): Array<TagTreeNode<T>> {
     const l = this._lookupTable.get(value);
-    return l ? Object.freeze(l.slice()) : (EMPTY_ARRAY:any);
+    return l ? Object.freeze(l.slice()) : EMPTY_ARRAY;
   }
 
   getAllByTag(tag: string): LiveSet<TagTreeNode<T>> {
