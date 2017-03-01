@@ -11,8 +11,8 @@
     "lint-fix": "eslint . --fix"
   },
   "keywords": [
-    "liveset",
-    "livetree"
+    "live-set",
+    "page-parser-tree"
   ],
   "author": "Chris Cowan <agentme49@gmail.com>",
   "license": "MIT",
