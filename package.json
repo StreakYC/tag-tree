@@ -18,7 +18,7 @@
   "license": "MIT",
   "dependencies": {
     "babel-runtime": "^6.22.0",
-    "live-set": "^0.3.2"
+    "live-set": "^0.4.0"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
