@@ -3,6 +3,7 @@
   "version": "0.4.1",
   "description": "Class representing a changing tree of tagged items.",
   "main": "js/index.js",
+  "sideEffects": false,
   "scripts": {
     "prepare": "rimraf js && babel -s inline -d js/ src/ --ignore '*.test.*' && flow-copy-source -v src js --ignore '*.test.*'",
     "test": "npm run lint && npm run flow_check && jest",
