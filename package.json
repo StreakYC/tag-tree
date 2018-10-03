@@ -1,6 +1,6 @@
 {
   "name": "tag-tree",
-  "version": "0.4.1",
+  "version": "1.0.0",
   "description": "Class representing a changing tree of tagged items.",
   "main": "js/index.js",
   "sideEffects": false,
