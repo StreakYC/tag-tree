@@ -27,7 +27,7 @@
   "homepage": "https://github.com/StreakYC/tag-tree#readme",
   "dependencies": {
     "babel-runtime": "^6.22.0",
-    "live-set": "^0.4.0"
+    "live-set": "^1.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",

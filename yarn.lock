@@ -97,6 +97,16 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
+"@types/transducers.js@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@types/transducers.js/-/transducers.js-0.3.0.tgz#5cd30bbadc7a4ccd6720b3121cd7dcc91e90827b"
+  integrity sha512-ZAHByx9pi7o0fLvGMGJbvtETHXINIAb37sqy2Pl4UgbAwwyJPrypKEqroPSUccHQW2uby862vYOBSzJnJI5YoA==
+
+"@types/zen-observable@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
+  integrity sha512-te5lMAWii1uEJ4FwLjzdlbw3+n0FZNOvFXHxQDKeT0dilh7HOzdMzV2TrJVUzq8ep7J4Na8OUYPRLSQkJHAlrg==
+
 abab@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.0.tgz#aba0ab4c5eee2d4c79d3487d85450fb2376ebb0f"
@@ -3116,16 +3126,18 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-live-set@^0.4.0:
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/live-set/-/live-set-0.4.4.tgz#4817cf91e7970145a62763d341f853f267ece922"
-  integrity sha512-QoxSHp++3laldT9ymX8Wd5ITsjNYA1avhIDOkCpyzfXdPkhRSs4vzCJgQfFwKCHFbb8iTfiuEPXz3bxGXxLXPQ==
+live-set@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/live-set/-/live-set-1.0.0.tgz#8535fa243d59e1d673580063dea170b67b6910e3"
+  integrity sha512-zNGPekAhiHsaS7AFYwNXMzZhlWCaoBOSR/7ChaVWvZX3uj/EoPq2i+qzmvJt43GJT4EUzfsK7Zp3O+sBbQ8NEg==
   dependencies:
+    "@babel/runtime" "^7.0.0"
+    "@types/transducers.js" "^0.3.0"
+    "@types/zen-observable" "^0.8.0"
     asap "^2.0.5"
-    babel-runtime "^6.22.0"
     envify "^4.0.0"
     symbol-observable "^1.0.4"
-    zen-observable "^0.6.0"
+    zen-observable "^0.8.9"
 
 load-json-file@^1.0.0:
   version "1.1.0"
@@ -4957,7 +4969,7 @@ yargs@^12.0.1:
     y18n "^3.2.1 || ^4.0.0"
     yargs-parser "^10.1.0"
 
-zen-observable@^0.6.0:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/zen-observable/-/zen-observable-0.6.1.tgz#01dbed3bc8d02cbe9ee1112c83e04c807f647244"
-  integrity sha512-DKjFTL7siVLIUMZOFZ0alqMEdTsXPUxoCZzrvB2tdWEVN/6606Qh1nCfSTCAOZMrtcPzzFI3BXmwBKLAew52NA==
+zen-observable@^0.8.9:
+  version "0.8.9"
+  resolved "https://registry.yarnpkg.com/zen-observable/-/zen-observable-0.8.9.tgz#0475c760ff0eda046bbdfa4dc3f95d392807ac53"
+  integrity sha512-Y9kPzjGvIZ5jchSlqlCpBW3I82zBBL4z+ulXDRVA1NwsKzjt5kwAi+gOYIy0htNkfuehGZZtP5mRXHRV6TjDWw==
