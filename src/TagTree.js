@@ -15,7 +15,7 @@ export type TagTreeController<T> = {
 
 export type TagTreeInit<T> = {|
   root: T;
-  tags: Array<{| tag: string, ownedBy?: ?Array<string> |}>;
+  tags: $ReadOnlyArray<{| tag: string, ownedBy?: ?$ReadOnlyArray<string> |}>;
   executor: (controller: TagTreeController<T>) => void;
 |};
 
@@ -135,7 +135,7 @@ export default class TagTree<T> extends TagTreeNode<T> {
     init.executor = () => {}; // release reference
   }
 
-  getNodesForValue(value: T): Array<TagTreeNode<T>> {
+  getNodesForValue(value: T): $ReadOnlyArray<TagTreeNode<T>> {
     const l = this._lookupTable.get(value);
     return l ? Object.freeze(l.slice()) : EMPTY_ARRAY;
   }

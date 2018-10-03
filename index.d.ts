@@ -20,13 +20,13 @@ export interface TagTreeController<T> {
 
 export interface TagTreeInit<T> {
   root: T;
-  tags: Array<{tag: string, ownedBy?: null|Array<string>}>;
+  tags: ReadonlyArray<{tag: string, ownedBy?: null|ReadonlyArray<string>}>;
   executor: (controller: TagTreeController<T>) => void;
 }
 
 export class TagTree<T> extends TagTreeNode<T> {
   constructor(init: TagTreeInit<T>);
-  getNodesForValue(value: T): Array<TagTreeNode<T>>;
+  getNodesForValue(value: T): ReadonlyArray<TagTreeNode<T>>;
   getAllByTag(tag: string): LiveSet<TagTreeNode<T>>;
   getAll(): Map<string, LiveSet<TagTreeNode<T>>>;
 }
