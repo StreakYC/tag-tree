@@ -8,3 +8,4 @@ npm-debug.log
 /flow-typed
 /.flowconfig
 /yarn.lock
+.babelrc
