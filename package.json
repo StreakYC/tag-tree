@@ -6,7 +6,7 @@
   "sideEffects": false,
   "scripts": {
     "prepare": "rimraf js && babel -s inline -d js/ src/ --ignore '**/*.test.js' && flow-copy-source -v src js --ignore '*.test.*'",
-    "test": "yarn lint && flow check && jest",
+    "test": "yarn lint && flow check && jest && tsc",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix"
   },
@@ -45,6 +45,7 @@
     "flow-copy-source": "^2.0.2",
     "jest": "^23.6.0",
     "pdelay": "^2.0.0",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.1",
+    "typescript": "^3.1.1"
   }
 }
