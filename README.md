@@ -1,7 +1,6 @@
 # tag-tree
 
-[![Circle CI](https://circleci.com/gh/StreakYC/tag-tree.svg?style=shield)](https://circleci.com/gh/StreakYC/tag-tree)
-[![npm version](https://badge.fury.io/js/tag-tree.svg)](https://badge.fury.io/js/tag-tree)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/StreakYC/tag-tree/blob/master/LICENSE.txt)[![Circle CI](https://circleci.com/gh/StreakYC/tag-tree.svg?style=shield)](https://circleci.com/gh/StreakYC/tag-tree) [![npm version](https://badge.fury.io/js/tag-tree.svg)](https://badge.fury.io/js/tag-tree)
 
 This class represents a hierarchical tree of tagged (named) values.
 
