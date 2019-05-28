@@ -41,7 +41,7 @@
     "babel-plugin-add-module-exports": "^1.0.0",
     "eslint": "^5.6.0",
     "eslint-plugin-flowtype": "^2.30.0",
-    "flow-bin": "^0.82.0",
+    "flow-bin": "^0.98.1",
     "flow-copy-source": "^2.0.2",
     "husky": "^2.3.0",
     "jest": "^23.6.0",
