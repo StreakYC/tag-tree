@@ -1,22 +1,26 @@
 /* @flow */
 
 import LiveSet from 'live-set';
-import type {LiveSetController} from 'live-set';
+import type { LiveSetController } from 'live-set';
 
 import TagTreeNode from './TagTreeNode';
-import type {TagTreeNodeController} from './TagTreeNode';
+import type { TagTreeNodeController } from './TagTreeNode';
 
 export type TagTreeController<T> = {
-  tree: TagTree<T>;
-  addTaggedValue(parent: TagTreeNode<T>, tag: string, value: T): TagTreeNode<T>;
-  removeTaggedNode(parent: TagTreeNode<T>, tag: string, node: TagTreeNode<T>): void;
-  end(): void;
+  tree: TagTree<T>,
+  addTaggedValue(parent: TagTreeNode<T>, tag: string, value: T): TagTreeNode<T>,
+  removeTaggedNode(
+    parent: TagTreeNode<T>,
+    tag: string,
+    node: TagTreeNode<T>
+  ): void,
+  end(): void
 };
 
 export type TagTreeInit<T> = {|
-  root: T;
-  tags: $ReadOnlyArray<{| tag: string, ownedBy?: ?$ReadOnlyArray<string> |}>;
-  executor: (controller: TagTreeController<T>) => void;
+  root: T,
+  tags: $ReadOnlyArray<{| tag: string, ownedBy?: ?$ReadOnlyArray<string> |}>,
+  executor: (controller: TagTreeController<T>) => void
 |};
 
 const EMPTY_ARRAY: any[] = Object.freeze([]);
@@ -24,19 +28,22 @@ const EMPTY_ARRAY: any[] = Object.freeze([]);
 export default class TagTree<T> extends TagTreeNode<T> {
   _nodeControllers: Map<TagTreeNode<T>, TagTreeNodeController<T>> = new Map();
   _lookupTable: Map<T, Array<TagTreeNode<T>>>;
-  _allByTag: Map<string, {
-    ownedTags: Set<string>;
-    liveSet: LiveSet<TagTreeNode<T>>;
-    controller: LiveSetController<TagTreeNode<T>>;
-  }>;
+  _allByTag: Map<
+    string,
+    {
+      ownedTags: Set<string>,
+      liveSet: LiveSet<TagTreeNode<T>>,
+      controller: LiveSetController<TagTreeNode<T>>
+    }
+  >;
 
   constructor(init: TagTreeInit<T>) {
     let rootNodeController;
     super({
       value: init.root,
       parent: null,
-      ownedTags: new Set(init.tags.map(({tag}) => tag)),
-      executor: (controller) => {
+      ownedTags: new Set(init.tags.map(({ tag }) => tag)),
+      executor: controller => {
         rootNodeController = controller;
       }
     });
@@ -46,17 +53,19 @@ export default class TagTree<T> extends TagTreeNode<T> {
     this._lookupTable = new Map([[init.root, [this]]]);
 
     this._allByTag = new Map();
-    init.tags.forEach(({tag}) => {
-      const {liveSet, controller} = LiveSet.active();
-      if (this._allByTag.has(tag)) throw new Error('Tag specified twice: '+tag);
-      this._allByTag.set(tag, {ownedTags: new Set(), liveSet, controller});
+    init.tags.forEach(({ tag }) => {
+      const { liveSet, controller } = LiveSet.active();
+      if (this._allByTag.has(tag))
+        throw new Error('Tag specified twice: ' + tag);
+      this._allByTag.set(tag, { ownedTags: new Set(), liveSet, controller });
     });
 
-    init.tags.forEach(({tag, ownedBy}) => {
+    init.tags.forEach(({ tag, ownedBy }) => {
       if (!ownedBy) return;
       ownedBy.forEach(owningTag => {
         const entry = this._allByTag.get(owningTag);
-        if (!entry) throw new Error(`unknown ownedBy value for ${tag}: ${owningTag}`);
+        if (!entry)
+          throw new Error(`unknown ownedBy value for ${tag}: ${owningTag}`);
         entry.ownedTags.add(tag);
       });
     });
@@ -72,7 +81,7 @@ export default class TagTree<T> extends TagTreeNode<T> {
           value,
           parent,
           ownedTags: tagEntry.ownedTags,
-          executor: (_controller) => {
+          executor: _controller => {
             controller = _controller;
           }
         });
@@ -103,10 +112,14 @@ export default class TagTree<T> extends TagTreeNode<T> {
 
         const value = node.getValue();
         const nodes = this._lookupTable.get(value);
-        if (!nodes) throw new Error('node was missing from lookup table before removal');
+        if (!nodes)
+          throw new Error('node was missing from lookup table before removal');
         if (nodes.length > 1) {
           const ix = nodes.indexOf(node);
-          if (ix < 0) throw new Error('node was missing from list in lookup table before removal');
+          if (ix < 0)
+            throw new Error(
+              'node was missing from list in lookup table before removal'
+            );
           nodes.splice(ix, 1);
         } else {
           this._lookupTable.delete(value);
@@ -126,7 +139,7 @@ export default class TagTree<T> extends TagTreeNode<T> {
         this._nodeControllers.forEach(controller => {
           controller.end();
         });
-        this._allByTag.forEach(({controller}) => {
+        this._allByTag.forEach(({ controller }) => {
           controller.end();
         });
       }
@@ -148,7 +161,7 @@ export default class TagTree<T> extends TagTreeNode<T> {
 
   getAll(): Map<string, LiveSet<TagTreeNode<T>>> {
     const m = new Map();
-    this._allByTag.forEach(({liveSet}, tag) => {
+    this._allByTag.forEach(({ liveSet }, tag) => {
       m.set(tag, liveSet);
     });
     return m;

@@ -22,6 +22,7 @@ Examples of usage of TagTree instances can be seen in the
 ## API
 
 ### TagTree
+
 `class TagTree<T> extends TagTreeNode<T>`
 
 A TagTree instance has methods on it to find nodes anywhere in the tree no
@@ -30,6 +31,7 @@ extends TagTreeNode, so a TagTree is also the root node and has all methods of
 a TagTreeNode too.
 
 #### TagTree::constructor
+
 `constructor({root: T, tags: Array<{tag: string, ownedBy?: ?Array<string>}>, executor: Function})`
 
 The `root` value will be the value returned by calling `getValue()` on the
@@ -45,17 +47,20 @@ reference to their TagTreeController, just like how a Promise is read-only
 without a reference to their resolve and reject functions.
 
 #### TagTree::getAllByTag
+
 `getAllByTag(tag: string): LiveSet<TagTreeNode<T>>`
 
 Get a [LiveSets](https://github.com/StreakYC/live-set) of all nodes with the
 given tag in the tree. The LiveSet may be subscribed to for changes.
 
 #### TagTree::getAll
+
 `getAll(): Map<string, LiveSet<TagTreeNode<T>>>`
 
 Get a Map of all tags to LiveSets of the nodes with that tag.
 
 #### TagTree::getNodesForValue
+
 `getNodesForValue(value: T): Array<TagTreeNode<T>>`
 
 Finds all nodes with the given value in a TagTree. Multiple nodes may be
@@ -72,36 +77,43 @@ TagTreeNode's constructor is not considered part of the public API and may
 change between versions.
 
 #### TagTreeNode::getValue
+
 `getValue(): T`
 
 Get the value this node was instantiated with.
 
 #### TagTreeNode::getParent
+
 `getParent(): null|TagTreeNode<T>`
 
 Returns the parent node. Returns `null` if this is the root node.
 
 #### TagTreeNode::getOwnedByTag
+
 `getOwnedByTag(tag: string): LiveSet<TagTreeNode<T>>`
 
 Get a LiveSet of all nodes with the given tag owned by this node.
 
 #### TagTreeNode::getOwned
+
 `getOwned(): Map<string, LiveSet<TagTreeNode<T>>>`
 
 Get a map of all owned tags to the LiveSets of owned nodes by that tag.
 
 #### TagTreeNode::getTag
+
 `getTag(): null|string`
 
 Return the tag of this node. Returns `null` if this is the root node.
 
 #### TagTreeNode::ownsNode
+
 `ownsNode(node: TagTreeNode<T>): boolean`
 
 Returns whether this node owns the given node.
 
 #### TagTreeNode::getTagOfOwnedNode
+
 `getTagOfOwnedNode(node: TagTreeNode<T>): string`
 
 It is an error to pass this function a node not owned.
@@ -111,11 +123,13 @@ It is an error to pass this function a node not owned.
 This object contains methods for controlling the values stored in a TagTree.
 
 #### TagTreeController::tree
+
 `tree<T>`
 
 This is a reference to the TagTree controlled by the TagTreeController.
 
 #### TagTreeController::addTaggedValue
+
 `addTaggedValue(parent: TagTreeNode<T>, tag: string, value: T): TagTreeNode<T>`
 
 Add a value to the TagTree. `parent` must either be the root (the TagTree
@@ -123,6 +137,7 @@ itself) or a node whose tag that has the new node-to-be's `tag` in its ownedBy
 list.
 
 #### TagTreeController::removeTaggedNode
+
 `removeTaggedNode(parent: TagTreeNode<T>, tag: string, node: TagTreeNode<T>): void`
 
 Remove a node from its parent.
@@ -133,6 +148,7 @@ under the given `tag`.
 All nodes owned by this node will be removed from the tree too recursively.
 
 #### TagTreeController::end
+
 `end(): void`
 
 End all of the LiveSets managed by the TagTree. This will prevent any changes
